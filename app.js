@@ -32,15 +32,26 @@ app.get('/employee',(req,res)=> {   // Router เวลาเรียกใช�
 app.delete('/employee/delete', (req, res) => {
     let sql = 'DELETE FROM employee.tableEmployee WHERE id=3;'  //adsadad
     let query = db.query(sql,(err,results) => { // สั่ง Query คำสั่ง sql
-    if(err) throw err  // ดัก error
-    console.log(results) // แสดงผล บน Console
-    res.json(results)   // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
+        if(err) throw err  // ดัก error
+        console.log(results) // แสดงผล บน Console
+        res.json(results)   // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
     })
-    })
+})
    
-
-
 // ---------------------------------------------------------
+app.post('/employee/add', (req, res) => {
+    let sql = `INSERT INTO employee.tableEmployee (first_name, age) VALUES ('test55', '20');`  
+    let query = db.query(sql,(err,results) => { // สั่ง Query คำสั่ง sql
+        if(err) throw err  // ดัก error
+        console.log(results) // แสดงผล บน Console
+        res.json(results)   // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
+    })
+})
+
+
+
+
+//----------------------------------------------------------
 app.set('port', process.env.port || port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
