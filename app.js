@@ -26,23 +26,10 @@ const db = mysql.createConnection({
   password: "singto11442525",
   database: "employee"
 });
-
-// connect to database
 app.get("/employee", (req, res) => {
   // Router เวลาเรียกใช้งาน
   let sql = "SELECT * FROM employee.tableEmployee;"; // คำสั่ง sql
-  let query = db.query(sql, (err, results) => {
-    // สั่ง Query คำสั่ง sql
-    if (err) throw err; // ดัก error
-    console.log(results[0]); // แสดงผล บน Console
-    res.json(results); // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
-  });
-});
-
-// ---------------------------------------------------------
-app.delete("/employee/delete", (req, res) => {
-  let sql = "DELETE FROM employee.tableEmployee WHERE id=2;"; //adsadad
-  let query = db.query(sql, (err, results) => {
+  db.query(sql, (err, results) => {
     // สั่ง Query คำสั่ง sql
     if (err) throw err; // ดัก error
     console.log(results[0]); // แสดงผล บน Console
@@ -50,32 +37,9 @@ app.delete("/employee/delete", (req, res) => {
   });
 });
 // ---------------------------------------------------------
-app.get("/employee/1", (req, res) => {
-  // Router เวลาเรียกใช้งาน
-  let sql = "SELECT * FROM employee.tableEmployee WHERE id=1;"; // คำสั่ง sql
-  let query = db.query(sql, (err, results) => {
-    // สั่ง Query คำสั่ง sql
-    if (err) throw err; // ดัก error
-    console.log(results[0]); // แสดงผล บน Console
-    res.json(results); // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
-  });
-});
-// ---------------------------------------------------------
-app.get("/employee/2", (req, res) => {
-  // Router เวลาเรียกใช้งาน
-  let sql = "SELECT * FROM employee.tableEmployee WHERE id=2;"; // คำสั่ง sql
-  let query = db.query(sql, (err, results) => {
-    // สั่ง Query คำสั่ง sql
-    if (err) throw err; // ดัก error
-    console.log(results[0]); // แสดงผล บน Console
-    res.json(results); // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
-  });
-});
-// ---------------------------------------------------------
-app.get("/employee/3", (req, res) => {
-  // Router เวลาเรียกใช้งาน
-  let sql = "SELECT * FROM employee.tableEmployee WHERE id=3;"; // คำสั่ง sql
-  let query = db.query(sql, (err, results) => {
+app.delete("/employee/delete/:id", (req, res) => {
+  let sql = `DELETE FROM employee.tableEmployee WHERE id=${req.params.id};`; //adsadad
+  db.query(sql, (err, results) => {
     // สั่ง Query คำสั่ง sql
     if (err) throw err; // ดัก error
     console.log(results[0]); // แสดงผล บน Console
@@ -86,7 +50,7 @@ app.get("/employee/3", (req, res) => {
 app.get("/employee/:id", (req, res) => {
   // Router เวลาเรียกใช้งาน
   let sql = `SELECT * FROM employee.tableEmployee WHERE id=${req.params.id};`; // คำสั่ง sql
-  let query = db.query(sql, (err, results) => {
+  db.query(sql, (err, results) => {
     // สั่ง Query คำสั่ง sql
     if (err) throw err; // ดัก error
     console.log(results[0]); // แสดงผล บน Console
