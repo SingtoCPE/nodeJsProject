@@ -3,8 +3,13 @@ const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const path = require("path");
-
 let app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // parse form data client
+app.use(express.static(path.join(__dirname, "public"))); // configure express to use public folder
+app.use(fileUpload()); // configure fileupload
+
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -37,13 +42,13 @@ app.get("/employee", (req, res) => {
   });
 });
 // ---------------------------------------------------------
-app.delete("/employee/delete/:id", (req, res) => {
-  let sql = `DELETE FROM employee.tableEmployee WHERE id=${req.params.id};`; //adsadad
+app.post("/employee/delete", (req, res) => {
+  let sql = `DELETE FROM employee.tableEmployee WHERE id=${req.body.id};`; //adsadad
   db.query(sql, (err, results) => {
-    // สั่ง Query คำสั่ง sql
-    if (err) throw err; // ดัก error
-    console.log(results[0]); // แสดงผล บน Console
-    res.json(results); // สร้างผลลัพธ์เป็น JSON ส่งออกไปบน Browser
+    
+    if (err) throw err; 
+    console.log(results[0]); 
+    res.json(results); 
   });
 });
 // ---------------------------------------------------------
@@ -61,7 +66,7 @@ app.get("/employee/:id", (req, res) => {
 // ---------------------------------------------------------
 app.post("/employee/add", (req, res) => {
   let sql = `INSERT INTO employee.tableEmployee (id,first_name, age) VALUES (3,'test3', '16');`;
-  let query = db.query(sql, (err, results) => {
+  db.query(sql, (err, results) => {
     // สั่ง Query คำสั่ง sql
     if (err) throw err; // ดัก error
     console.log(results[0]); // แสดงผล บน Console
@@ -73,10 +78,7 @@ app.post("/employee/add", (req, res) => {
 // app.set('port', process.env.port || port); // set express to use this port
 // app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 // app.set('view engine', 'ejs'); // configure template engine
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // parse form data client
-app.use(express.static(path.join(__dirname, "public"))); // configure express to use public folder
-app.use(fileUpload()); // configure fileupload
+
 
 // routes for the app
 /*
