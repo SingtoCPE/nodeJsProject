@@ -5,10 +5,9 @@ const mysql = require("mysql");
 const path = require("path");
 let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // parse form data client
-app.use(express.static(path.join(__dirname, "public"))); // configure express to use public folder
-app.use(fileUpload()); // configure fileupload
-
+app.use(bodyParser.json()); 
+app.use(express.static(path.join(__dirname, "public"))); 
+app.use(fileUpload()); 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
