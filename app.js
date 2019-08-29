@@ -5,9 +5,9 @@ const mysql = require("mysql");
 const path = require("path");
 let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); 
-app.use(express.static(path.join(__dirname, "public"))); 
-app.use(fileUpload()); 
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(fileUpload());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -52,13 +52,15 @@ app.post("/employee/delete", (req, res) => {
 // ---------------------------------------------------------
 app.post("/employee/add", (req, res) => {
   console.log(req);
-  let sql = `INSERT INTO employee.tableEmployee (first_name, age) VALUES ('${req.body.first_name}', ${req.body.age});`;
+  let sql = `INSERT INTO employee.tableEmployee (first_name, age, position, salary) VALUES ('${req.body.first_name}', 
+  ${req.body.age}, '${req.body.position}', ${req.body.salary});`;
   db.query(sql, (err, results) => {
     if (err) throw err;
     console.log(results[0]);
     res.json(results);
   });
 });
+//------------------------------------------------------------
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
