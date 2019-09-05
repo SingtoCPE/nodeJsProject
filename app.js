@@ -3,7 +3,7 @@ const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const path = require("path");
-const { check, validationResult } = require("express-validator");
+const { check, validationResult } = require('express-validator');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
